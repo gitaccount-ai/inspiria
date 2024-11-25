@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Search - Education, Motivation, Inspiration, Teen Content</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e7f3ff;  /* Light blue background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #007bff;  /* Blue background */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 70%;
+            padding: 12px;
+            font-size: 18px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-filter select {
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            outline: none;
+            background-color: #f1f1f1;
+        }
+
+        /* Video List Grid */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Video Card Styling */
+        .video-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .video-card .video-info {
+            padding: 15px;
+        }
+
+        .video-card h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+
+        .video-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .search-bar input {
+                width: 60%;
+            }
+            .search-bar button {
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>INSPIRIA</h1>
+</header>
+
+<div class="container">
+    <!-- Category Filter Dropdown -->
+    <div class="category-filter">
+        <select id="categoryFilter" onchange="searchVideos()">
+            <option value="all">All Categories</option>
+            <option value="education">Educational</option>
+            <option value="motivational">Motivational</option>
+            <option value="inspirational">Inspirational</option>
+            <option value="teen">Teenage</option>
+        </select>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchQuery" placeholder="Search for videos...">
+        <button onclick="searchVideos()">Search</button>
+    </div>
+
+    <!-- Video List -->
+    <div id="videoList" class="video-list">
+        <!-- Video Cards will be dynamically added here -->
+    </div>
+</div>
+
+<script>
+    // Mock data for different categories of videos
+    const videos = [
+        { title: 'Basic Math Concepts', description: 'Learn fundamental concepts of arithmetic and algebra.', category: 'education', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'History of World War II', description: 'Understand the key events and impact of WWII.', category: 'education', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Introduction to Programming', description: 'Get started with coding in Python.', category: 'education', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Overcoming Obstacles - Motivational Speech', description: 'Push through obstacles and achieve success.', category: 'motivational', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Inspiration for Teens', description: 'How to stay positive and focused during teenage years.', category: 'teen', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'How to Stay Motivated', description: 'Strategies to maintain motivation in challenging times.', category: 'motivational', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Finding Purpose in Life - Inspirational Video', description: 'Learn how to find purpose and fulfillment in your life.', category: 'inspirational', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Teenage Stress: Managing Mental Health', description: 'A guide to managing stress and mental health in teenage years.', category: 'teen', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'How to Be a Successful Student', description: 'Tips for academic success and personal growth.', category: 'education', thumbnail: 'https://via.placeholder.com/250x150' },
+        { title: 'Be the Best Version of Yourself', description: 'Self-improvement advice to help you become your best self.', category: 'motivational', thumbnail: 'https://via.placeholder.com/250x150' }
+    ];
+
+    // Function to filter and display videos
+    function searchVideos() {
+        const query = document.getElementById("searchQuery").value.trim().toLowerCase();
+        const category = document.getElementById("categoryFilter").value;
+
+        // Filter videos based on the search query and selected category
+        const filteredVideos = videos.filter(video => {
+            const matchesQuery = video.title.toLowerCase().includes(query) || video.description.toLowerCase().includes(query);
+            const matchesCategory = category === 'all' || video.category === category;
+            return matchesQuery && matchesCategory;
+        });
+
+        // Clear the current video list
+        const videoList = document.getElementById('videoList');
+        videoList.innerHTML = '';
+
+        // If no videos match the search, show a "No results found" message
+        if (filteredVideos.length === 0) {
+            videoList.innerHTML = '<p>No videos found. Try a different search.</p>';
+        } else {
+            // Render the filtered videos
+            filteredVideos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.classList.add('video-card');
+                
+                videoCard.innerHTML = `
+                    <img src="${video.thumbnail}" alt="Video Thumbnail">
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                    </div>
+                `;
+                videoList.appendChild(videoCard);
+            });
+        }
+    }
+
+    // Load all videos on page load
+    window.onload = function() {
+        searchVideos();
+    };
+</script>
+
+</body>
+</html>

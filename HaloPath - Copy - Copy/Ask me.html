@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Me AI</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6e7dff, #5a5eab);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #0044cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: auto;
+            display: grid;
+            gap: 20px;
+        }
+        .button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            box-sizing: border-box;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .response {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            color: #333;
+        }
+        .response p {
+            margin: 0;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Ask Me AI</h1>
+</header>
+
+<div class="container">
+    <!-- Input for asking questions -->
+    <div class="form-group">
+        <label for="userQuestion">Ask a Question</label>
+        <input type="text" id="userQuestion" placeholder="Enter your question">
+    </div>
+    
+    <!-- Button to ask the AI -->
+    <button class="button" onclick="askQuestion()">Ask Me</button>
+
+    <!-- Response Section -->
+    <div id="responseContainer" class="response" style="display:none;">
+        <h3>Response:</h3>
+        <p id="aiResponse"></p>
+    </div>
+</div>
+
+<script>
+    // Function to get the AI's answer
+    async function askQuestion() {
+        const userQuestion = document.getElementById('userQuestion').value.trim();
+
+        if (!userQuestion) {
+            alert("Please ask a question.");
+            return;
+        }
+
+        const responseContainer = document.getElementById('responseContainer');
+        const aiResponse = document.getElementById('aiResponse');
+        
+        // Clear previous response
+        aiResponse.textContent = "Thinking...";
+
+        // Send the question to the server (Node.js backend)
+        try {
+            const response = await fetch('http://localhost:3000/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: userQuestion }),
+            });
+
+            const data = await response.json();
+            aiResponse.textContent = data.answer;
+        } catch (error) {
+            aiResponse.textContent = "Sorry, something went wrong.";
+        }
+
+        responseContainer.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

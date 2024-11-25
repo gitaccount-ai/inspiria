@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Responsibilities</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6e7dff, #5a5eab);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #0044cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            box-sizing: border-box;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+        }
+        .content, .video-container {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .content h2 {
+            color: #007bff;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card h3 {
+            color: #333;
+        }
+        .card p {
+            color: #666;
+            font-size: 16px;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Legal Responsibilities</h1>
+</header>
+
+<div class="container">
+    <!-- Button to toggle content visibility -->
+    <button class="button" onclick="showContent()">Learn More About Legal Responsibilities</button>
+
+    <!-- Button to toggle video visibility -->
+    <button class="button" onclick="showVideo()">Watch Legal Responsibilities Video</button>
+
+    <!-- Example Card (can be replaced with actual content) -->
+    <div class="card">
+        <h3>What are Legal Responsibilities?</h3>
+        <p>Legal responsibilities are obligations individuals or organizations have under the law. These include compliance with various local, national, and international laws and regulations.</p>
+    </div>
+
+    <!-- Example Card -->
+    <div class="card">
+        <h3>Importance of Understanding Legal Responsibilities</h3>
+        <p>Understanding legal responsibilities is crucial for avoiding legal disputes, fines, and other legal consequences. Compliance ensures that both individuals and organizations act within the boundaries of the law.</p>
+    </div>
+</div>
+
+<!-- Content that will be toggled -->
+<div id="content" class="content">
+    <h2>What are Legal Responsibilities?</h2>
+    <p>Legal responsibilities refer to the duties and obligations imposed by law on individuals and organizations. These responsibilities include following rules, paying taxes, protecting intellectual property, ensuring safety standards, and many more depending on the jurisdiction.</p>
+    <h3>Key Areas of Legal Responsibility:</h3>
+    <ul>
+        <li>Compliance with Local and National Laws</li>
+        <li>Business Regulations and Taxation</li>
+        <li>Employee Rights and Workplace Safety</li>
+        <li>Environmental Laws and Protection</li>
+        <li>Intellectual Property and Copyright</li>
+    </ul>
+</div>
+
+<!-- Video container -->
+<div id="video" class="video-container">
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<script>
+    function showContent() {
+        var content = document.getElementById("content");
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+
+    function showVideo() {
+        var video = document.getElementById("video");
+        if (video.style.display === "none" || video.style.display === "") {
+            video.style.display = "block";
+        } else {
+            video.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>

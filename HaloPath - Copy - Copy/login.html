@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Start</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url('https://img.freepik.com/free-vector/realistic-white-golden-geometric-background_79603-2032.jpg?ga=GA1.1.931605534.1731696929&semt=ais_hybrid');
+      background-color: #f4f4f9;
+      color: #003366;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Header */
+    .header {
+      background-color: #003366;
+      padding: 40px;
+      text-align: center;
+      color: white;
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-bottom: 4px solid #4CAF50;
+      position: relative;
+    }
+
+    /* Profile, Notification, and Settings Buttons */
+    .top-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .top-button {
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      padding: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .top-button img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .top-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      background-color: #388E3C;
+    }
+
+    /* Menu Section */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 30px 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    /* Rounded Button */
+    .menu-item {
+      background-color: #4CAF50;  /* Teal Green background for button */
+      border-radius: 30px;  /* Rounded shape */
+      padding: 20px 30px;  /* Increased padding for bigger size */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-size: 18px;  /* Larger font size */
+      font-weight: 600;
+      color: white;  /* White text for the buttons */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      width: 100%;
+      max-width: 220px;  /* Increased button width for better visibility */
+      margin: 0 auto;
+    }
+
+    .menu-item img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #003366;
+      padding: 20px;
+      color: white;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Hidden content sections */
+    .hidden {
+      display: none;
+    }
+
+    /* Content Section Styling */
+    .section-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .section-content h3 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      color: #003366;
+    }
+
+    .section-content p {
+      font-size: 16px;
+      color: #555;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    Inspiria
+    <div class="top-buttons">
+      <!-- Navigation buttons -->
+      <a href="setting.html" id="settings-btn">
+        <div class="top-button">
+          <img src="https://cdn-icons-png.freepik.com/256/15196/15196237.png" alt="Setting icon">
+        </div>
+      </a>
+      <a href="notification.html" id="notification-btn">
+        <div class="top-button">
+          <img src="https://cdn-icons-png.flaticon.com/512/4226/4226663.png" alt="Notification Icon">
+        </div>
+      </a>
+      <a href="profile.html" id="profile-btn">
+        <div class="top-button">
+          <img src="https://cdn-icons-png.flaticon.com/512/6915/6915987.png" alt="Profile Icon">
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Menu -->
+  <div class="menu">
+    <a href="Finincial litracy.html" class="menu-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzzsdCS98oLUS7haiSjiqKvCsC2em31L1wBw&s" alt="Financial Literacy Icon">
+      <p>Financial Literacy</p>
+    </a>
+    <a href="legal responsibilities.html" class="menu-item">
+      <img src="https://www.clipartmax.com/png/middle/422-4220060_prosecutor-clipart-prosecutor-judge-court-legal-responsibility-icon.png" alt="Legal Responsibilities Icon">
+      <p>Legal Responsibilities</p>
+    </a>
+    <a href="Career plans.html" class="menu-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6MukdX4hkpQNZhnkwS-a76PBlvW3mo9qvUw&s" alt="Career Planning Icon">
+      <p>Career Planning</p>
+    </a>
+    <a href="Tasks.html" class="menu-item">
+      <img src="https://img.lovepik.com/element/45012/8208.png_300.png" alt="Tasks Icon">
+      <p>Tasks</p>
+    </a>
+    <a href="Ask me.html" class="menu-item">
+      <img src="https://w7.pngwing.com/pngs/604/167/png-transparent-asking-question-illustration-thumbnail.png" alt="Ask Me Icon">
+      <p>Ask Me</p>
+    </a>
+    <a href="videos.html" class="menu-item">
+      <img src="data:image/png;base64,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" alt="Schedule Icon">
+      <p>Videos</p>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <!-- Footer content -->
+  </div>
+</body>
+</html>

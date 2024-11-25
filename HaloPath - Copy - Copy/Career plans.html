@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Plans</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6e7dff, #5a5eab);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #0044cc;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            text-transform: uppercase;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            box-sizing: border-box;
+        }
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+        }
+        .content, .plan-container {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .content h2 {
+            color: #007bff;
+        }
+        .plan-container {
+            background-color: #f9f9f9;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+        }
+        .plan-container h3 {
+            color: #333;
+        }
+        .plan-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .plan-container li {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Set your career plan here</h1>
+</header>
+
+<div class="container">
+    <!-- Button to toggle content visibility -->
+    <button class="button" onclick="showForm()">Create My Career Plan</button>
+
+    <!-- Career Plan Form -->
+    <div id="careerForm" class="content">
+        <h2>Share Your Career Goals</h2>
+        <div class="form-group">
+            <label for="careerTitle">Career Title (e.g., Doctor, Engineer, Artist):</label>
+            <input type="text" id="careerTitle" placeholder="Enter your desired career">
+        </div>
+        <div class="form-group">
+            <label for="careerDescription">Career Plan Description:</label>
+            <textarea id="careerDescription" rows="4" placeholder="Describe your career goals and plans"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="button" onclick="saveCareerPlan()">Save My Career Plan</button>
+        </div>
+    </div>
+
+    <!-- Saved Career Plans -->
+    <div id="savedPlans" class="plan-container">
+        <h3>Your Saved Career Plans</h3>
+        <ul id="plansList"></ul>
+    </div>
+</div>
+
+<script>
+    // Function to show the career plan form
+    function showForm() {
+        var form = document.getElementById('careerForm');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
+    // Function to save the career plan
+    function saveCareerPlan() {
+        var careerTitle = document.getElementById('careerTitle').value;
+        var careerDescription = document.getElementById('careerDescription').value;
+
+        if (careerTitle && careerDescription) {
+            var plan = {
+                title: careerTitle,
+                description: careerDescription
+            };
+
+            // Save the plan to local storage
+            var plans = JSON.parse(localStorage.getItem('careerPlans')) || [];
+            plans.push(plan);
+            localStorage.setItem('careerPlans', JSON.stringify(plans));
+
+            // Display the updated list of plans
+            displaySavedPlans();
+
+            // Clear the form
+            document.getElementById('careerTitle').value = '';
+            document.getElementById('careerDescription').value = '';
+        } else {
+            alert('Please fill out both fields.');
+        }
+    }
+
+    // Function to delete a career plan
+    function deleteCareerPlan(index) {
+        var plans = JSON.parse(localStorage.getItem('careerPlans')) || [];
+        plans.splice(index, 1);  // Remove the plan at the specified index
+        localStorage.setItem('careerPlans', JSON.stringify(plans));
+
+        // Refresh the displayed list of plans
+        displaySavedPlans();
+    }
+
+    // Function to display saved career plans
+    function displaySavedPlans() {
+        var plans = JSON.parse(localStorage.getItem('careerPlans')) || [];
+        var plansList = document.getElementById('plansList');
+        plansList.innerHTML = '';
+
+        if (plans.length > 0) {
+            plans.forEach(function(plan, index) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = '<strong>' + plan.title + '</strong>: ' + plan.description;
+                
+                // Create Delete button
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.style.backgroundColor = '#dc3545';
+                deleteButton.style.color = 'white';
+                deleteButton.style.border = 'none';
+                deleteButton.style.borderRadius = '5px';
+                deleteButton.style.cursor = 'pointer';
+                deleteButton.style.padding = '5px 10px';
+                deleteButton.style.marginLeft = '15px';
+                deleteButton.onclick = function() {
+                    deleteCareerPlan(index);
+                };
+
+                // Append the delete button to the list item
+                listItem.appendChild(deleteButton);
+
+                plansList.appendChild(listItem);
+            });
+
+            var savedPlans = document.getElementById('savedPlans');
+            savedPlans.style.display = 'block';
+        } else {
+            var savedPlans = document.getElementById('savedPlans');
+            savedPlans.style.display = 'none';
+        }
+    }
+
+    // Load saved plans when the page is loaded
+    window.onload = function() {
+        displaySavedPlans();
+    };
+</script>
+
+</body>
+</html>
